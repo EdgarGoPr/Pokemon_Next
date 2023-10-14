@@ -28,7 +28,7 @@ export default function formatCard(pokemon) {
     speed: stats?.[5]?.base_stat || 0,
     height,
     weight,
-    type: types?.map((type) => type?.type?.name || null) || [], 
+    type: types?.map((type) => type?.type?.name || null) || [],
   };
 
   return formattedPokemon;

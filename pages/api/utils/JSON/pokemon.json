@@ -1,0 +1,16 @@
+{
+    "data": {
+      "ident": 2500,
+      "name": "edgar",
+      "image": "https://cdn.discordapp.com/attachments/1111445757363503156/1161815156624474193/sentadilla1-1.png?ex=6539abae&is=652736ae&hm=1a38dacfef058add6f7cebe361d68d9091819183351a3fdf8db77121005a298e&",
+      "health": 55,
+      "attack": 55,
+      "defense": 55,
+      "speed": 55,
+      "height": 55,
+      "weight": 155,
+      "type": [
+        "fire"
+      ]
+    }
+  }

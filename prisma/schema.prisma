@@ -22,9 +22,11 @@ model Pokemon {
   height Float
   weight Float
   type   String[]
+  isActive Boolean @default(true)
 }
 
 model Type {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String @unique
+  isActive Boolean @default(true)
 }

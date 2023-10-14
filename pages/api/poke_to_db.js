@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-import formatCard from "./format_pokemons";
-
-const prisma = new PrismaClient();
+import prisma from "./utils/prisma";
+import formatCard from "./utils/format_poke";
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
