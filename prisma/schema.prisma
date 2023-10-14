@@ -12,9 +12,10 @@ datasource db {
 
 model Pokemon {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String @unique
+  ident Int @unique
+  name  String @unique
   image String?
-  health   Int
+  health Int
   attack Int
   defense Int
   speed  Int
@@ -22,6 +23,7 @@ model Pokemon {
   weight Float
   type   String[]
 }
+
 model Type {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String @unique
