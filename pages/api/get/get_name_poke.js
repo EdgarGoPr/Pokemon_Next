@@ -1,7 +1,7 @@
 import prisma from "../utils/prisma";
 
-export default async function handler(req, res) {
-  const { name } = req.query
+export default async function search(req, res) {
+  const { name } = req.query || {}
   if (req.method === 'GET') {
     try {
       const data = await prisma.pokemon.findMany({
