@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Pokemon {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+  image String?
+  health   Int
+  attack Int
+  defense Int
+  speed  Int
+  height Float
+  weight Float
+  type   String[]
+}
+model Type {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String @unique
+}
