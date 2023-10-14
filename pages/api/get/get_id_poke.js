@@ -1,15 +1,11 @@
-import prisma from "./utils/prisma";
+import prisma from "../utils/prisma";
 
 export default async function handler(req, res) {
-  const { name } = req.query
+  const { id } = req.query
   if (req.method === 'GET') {
     try {
-      const data = await prisma.pokemon.findMany({
-        where: {
-          name: {
-            contains: name
-          }
-        }
+      const data = await prisma.pokemon.findUnique({
+        where: { id }
       })
       res.status(200).json({ message: 'Fetch successful', data: data })
     } catch (error) {

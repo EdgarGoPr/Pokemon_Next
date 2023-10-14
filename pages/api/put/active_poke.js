@@ -1,23 +1,12 @@
-import prisma from "./utils/prisma";
+import prisma from "../utils/prisma";
 
 export default async function handler(req, res) {
-  const { id } = req.query
-  const { data } = req.body
+  const { id } = req.query;
   if (req.method === 'PUT') {
     try {
       const updatedPokemon = await prisma.pokemon.update({
         where: { id },
-        data: {
-          name: data.name,
-          image: data.image,
-          health: data.health,
-          attack: data.attack,
-          defense: data.defense,
-          speed: data.speed,
-          height: data.height,
-          weight: data.weight,
-          type: data.type,
-        },
+        data: { isActive: true },
       });
       res.status(200).json({ message: 'Activation successful', data: updatedPokemon });
     } catch (error) {

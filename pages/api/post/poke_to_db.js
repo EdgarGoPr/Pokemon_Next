@@ -1,5 +1,5 @@
-import prisma from "./utils/prisma";
-import formatCard from "./utils/format_poke";
+import prisma from "../utils/prisma";
+import formatCard from "../utils/format_poke";
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {

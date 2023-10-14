@@ -1,4 +1,4 @@
-import prisma from "./utils/prisma";
+import prisma from "../utils/prisma";
 
 export default async function handler(req, res) {
   const { id } = req.query;
@@ -6,12 +6,12 @@ export default async function handler(req, res) {
     try {
       const updatedPokemon = await prisma.pokemon.update({
         where: { id },
-        data: { isActive: true },
+        data: { isActive: false },
       });
-      res.status(200).json({ message: 'Activation successful', data: updatedPokemon });
+      res.status(200).json({ message: 'Deletion successful', data: updatedPokemon });
     } catch (error) {
       console.log('Error:', error);
-      res.status(500).json({ message: 'An error occurred while activating data' });
+      res.status(500).json({ message: 'An error occurred while deleting data' });
     }
   } else {
     res.status(405).json({ message: 'Method not allowed' });
