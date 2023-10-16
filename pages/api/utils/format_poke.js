@@ -12,10 +12,6 @@ export default function formatCard(pokemon) {
     height,
     weight,
     types,
-    attack,
-    defense,
-    life,
-    speed,
   } = pokemon;
 
   const formattedPokemon = {
