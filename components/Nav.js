@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
-import Search from "./Search";
+import search from "@/pages/api/get/get_name_poke";
 
-export default function Nav() {
+export default function Nav({ handleSearch, query }) {
   const router = useRouter();
 
   const handleLogout = () => {
@@ -10,21 +10,22 @@ export default function Nav() {
 
   return (
     <>
-    <div>
-      <button onClick={handleLogout}>Logout</button>
-    </div>
-    <div>
-      <Search/>
-    </div>
-    <div>
-      <h1>filter 1</h1>
-    </div>
-    <div>
-      <h1>filter 2</h1>
-    </div>
-    <div>
-      <h1>filter 3</h1>
-    </div>
+      <div>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
+      <div>
+        <input
+          type='text'
+          value={query}
+          onChange={handleSearch}
+        />
+      </div>
+      <div>
+        <h1>filter 1</h1>
+      </div>
+      <div>
+        <h1>filter 2</h1>
+      </div>
     </>
   )
 }

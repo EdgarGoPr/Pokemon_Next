@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 
-const Cards = () => {
+const Cards = ({ searchQuery }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/get/get_poke");
+        const response = await fetch(`/api/get/get_poke?name=${searchQuery}`);
         const result = await response.json();
         setData(result.data);
       } catch (error) {
@@ -16,7 +16,7 @@ const Cards = () => {
     };
 
     fetchData();
-  }, []);
+  }, [searchQuery]);
 
   return (
     <div>
