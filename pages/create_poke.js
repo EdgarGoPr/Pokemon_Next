@@ -1,5 +1,7 @@
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
+import validations from "./api/utils/Validations";
+import Head from "next/head";
 
 const TypeButton = ({ type, formType, handleTypeClick }) => {
   const isActive = formType.includes(type);
@@ -7,19 +9,22 @@ const TypeButton = ({ type, formType, handleTypeClick }) => {
   return (
     <div>
       <button
-        className={`selectButton roundButton ${isActive ? "active" : ""}`}
+        type="button"
         onClick={() => handleTypeClick(type)}
-      ></button>
-      <h4>{type}</h4>
+      >+</button>
+      <h4>{type.toUpperCase()}</h4>
     </div>
   );
 };
+
+
 
 const Form = () => {
   const router = useRouter();
   const [types, setTypes] = useState([]);
   const [error, setError] = useState({});
   const [form, setForm] = useState({
+    ident: "",
     name: "",
     image: "",
     health: "",
@@ -46,54 +51,121 @@ const Form = () => {
     router.push('/home')
   }
 
+  const nameExists = async (name) => {
+    await fetch(`/api/get/get_name_one_poke?name=${name}`)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.message === 'The pokemon exists') {
+          setError((prevError) => ({
+            ...prevError,
+            name: "Pokemon name already exists!",
+          }));
+          return true;
+        } else if (result.message === "No pokemons found") {
+          setError((prevError) => ({
+            ...prevError,
+            name: "",
+          }));
+          return false;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const identExists = async (ident) => {
+    await fetch(`/api/get/get_ident_poke?ident=${ident}`)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.message === 'The pokemon exists') {
+          setError((prevError) => ({
+            ...prevError,
+            ident: "Pokemon identification already exists!",
+          }));
+          return true;
+        } else if (result.message === "No pokemons found") {
+          setError((prevError) => ({
+            ...prevError,
+            ident: "",
+          }));
+          return false;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+
+
   const changeHandler = (event) => {
     const { name, value } = event.target;
     setForm((prevForm) => ({
       ...prevForm,
       [name]: value,
     }));
-    setError((prevError) => ({
-      ...prevError,
-      [name]: "",
-    }));
+    setError(
+      validations({
+        ...form,
+        [name]: value,
+      })
+    );
+    if (name === 'name' && name.length > 0) {
+      nameExists(value)
+    }
+    if (name === 'ident' && name.length > 0) {
+      identExists(value)
+    }
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
+    const errors = validations(form);
 
-    const errors = {};
-    if (form.name.trim() === "") {
-      errors.name = "Name is required";
-    }
     if (Object.keys(errors).length > 0) {
       setError(errors);
       return;
     }
+
     const newPokemon = {
+      ident: parseInt(form.ident),
       name: form.name.toLowerCase(),
       image: form.image,
-      health: form.health,
-      attack: form.attack,
-      defense: form.defense,
-      speed: form.speed,
-      height: form.height,
-      weight: form.weight,
+      health: parseInt(form.health),
+      attack: parseInt(form.attack),
+      defense: parseInt(form.defense),
+      speed: parseInt(form.speed),
+      height: parseInt(form.height),
+      weight: parseInt(form.weight),
       type: form.type,
     };
 
-    fetch("/api/post/create_poke", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newPokemon),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("New Pokemon created:", data);
-        router.push("/home");
+    const confirmed = window.confirm("Are you sure you want to create a new Pokémon?")
+
+    if (confirmed) {
+      fetch("/api/post/create_poke", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data: newPokemon }),
       })
-      .catch((error) => console.log(error));
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("New Pokemon created:", data);
+          if (data.message === 'Error creating pokemon') {
+            window.alert(data.message)
+          } else {
+            window.alert(data.message)
+            router.push("/home");
+          }
+
+        })
+        .catch((error) => {
+          console.log(error)
+        });
+    }
   };
 
   const handleTypeClick = (type) => {
@@ -127,13 +199,26 @@ const Form = () => {
 
   return (
     <>
+      <Head>
+        <title>Pokemon | Create</title>
+      </Head>
       <div>
         <div>
-          <button onClick={handleHome}>Home</button>
+          <button onClick={handleHome}>HOME</button>
         </div>
         <form onSubmit={submitHandler}>
           <div>
             <div>
+              <div>
+                <input
+                  type="number"
+                  name="ident"
+                  placeholder="IDENTIFICATION NUMBER"
+                  value={form.ident}
+                  onChange={changeHandler}
+                />
+                {error.ident && <p>{error.ident}</p>}
+              </div>
               <div>
                 <input
                   type="text"
@@ -182,9 +267,7 @@ const Form = () => {
                   value={form.defense}
                   onChange={changeHandler}
                 />
-                {error.defense && (
-                  <p>{error.defense}</p>
-                )}
+                {error.defense && <p>{error.defense}</p>}
               </div>
               <div>
                 <input
@@ -236,10 +319,9 @@ const Form = () => {
               </div>
             </div>
             <div>
-              {" "}
               {error.type && (
-                <p>{error.type}</p>
-              )}{" "}
+                <p className="error-message-types">{error.type}</p>
+              )}
             </div>
             <button type="submit">
               Create Pokemons

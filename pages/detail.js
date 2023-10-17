@@ -1,5 +1,6 @@
 'use client'
 
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
@@ -26,15 +27,15 @@ const Detail = () => {
     fetchPoke();
   }, [id]);
 
-  const handleReturn = () => {
-    router.push("/home");
-  };
-
   return (
     <>
-      <div>
-        <button onClick={handleReturn}>Return</button>
-      </div>
+      <Head>
+        {isLoading ? (
+          <title>Pokemon</title>
+        ) : (
+          <title>{poke.name.toUpperCase()}</title>
+        )}
+      </Head>
       {isLoading ? (
         <div>Loading...</div>
       ) : (

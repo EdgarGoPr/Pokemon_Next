@@ -12,11 +12,11 @@ export default function Nav({ handleSearch, query, handleFilter, filter, filterO
   };
 
   const handleCreateType = () => {
-    // Add the logic for the "Create Type" option here
+    router.push('/create_type')
   };
 
   const handleCreatePokemon = () => {
-    router.push('/create')
+    router.push('/create_poke')
   };
 
   const handleSelectorChange = (event) => {
@@ -36,6 +36,7 @@ export default function Nav({ handleSearch, query, handleFilter, filter, filterO
     <>
       <div>
         <select onChange={handleSelectorChange}>
+          <option value=''>HOME</option>
           <option value="profile">PROFILE</option>
           <option value="createType">CREATE TYPE</option>
           <option value="createPokemon">CREATE POKEMON</option>

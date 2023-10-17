@@ -2,6 +2,7 @@
 
 import Cards from "@/components/Cards";
 import Nav from "@/components/Nav";
+import Head from "next/head";
 import { useEffect, useState } from "react";
 
 export default function myPage() {
@@ -57,6 +58,9 @@ export default function myPage() {
 
   return (
     <>
+      <Head>
+        <title>Pokemons</title>
+      </Head>
       <Nav
         handleSearch={handleSearch}
         query={query}
