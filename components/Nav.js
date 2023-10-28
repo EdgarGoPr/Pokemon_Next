@@ -1,11 +1,7 @@
-import { useRouter } from "next/router";
+import Landing from "@/pages/unauth";
+import { signOut } from "next-auth/react";
 
 export default function Nav({ handleSearch, query, handleFilter, filter, filterOptions, sort, sortOptions, handleSort, handleReset }) {
-  const router = useRouter();
-
-  const handleLogout = () => {
-    router.push('/');
-  };
 
   const handleProfile = () => {
     // Add the logic for the "Profile" option here
@@ -28,7 +24,7 @@ export default function Nav({ handleSearch, query, handleFilter, filter, filterO
     } else if (selectedOption === "createPokemon") {
       handleCreatePokemon();
     } else if (selectedOption === "logout") {
-      handleLogout();
+      signOut()
     }
   };
 
