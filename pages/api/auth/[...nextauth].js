@@ -23,7 +23,7 @@ const authOptions = {
         }
     },
     secret: 'default_secret_key',
-    debug: true
+    // debug: true
 };
 
 export default NextAuth(authOptions)

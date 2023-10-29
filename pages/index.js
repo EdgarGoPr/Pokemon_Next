@@ -12,6 +12,10 @@ export default function myPage() {
   const [types, setTypes] = useState([]);
   const [filter, setFilter] = useState('');
   const [sort, setSort] = useState('');
+  const [user, setUser] = useState({})
+  const { data: session } = useSession()
+
+
 
   useEffect(() => {
     const fetchTypes = async () => {
@@ -25,7 +29,59 @@ export default function myPage() {
       }
     };
     fetchTypes();
-  }, []);
+
+    if (!!session) {
+      const User = async (session) => {
+        // console.log('session.user', session.user)
+        const response = await fetch(`/api/get/get_user?email=${session.user.email}`);
+        // console.log('response', response)
+        const result = await response.json();
+        // console.log('result', result)
+        if (result.data) {
+          console.log('estoy aqui')
+          const usuario = result.data
+          setUser(usuario)
+        } else {
+          try {
+            // console.log('benvenuto')
+            // console.log('session.user', session.user.uid)
+            const data = {
+              uid: session.user.uid,
+              name: session.user.name,
+              image: session.user.image,
+              email: session.user.email,
+              username: session.user.username
+            }
+            // console.log('data', data)
+            const response = await fetch('/api/post/create_user', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                data: data
+              })
+
+            })
+            const result = await response.json();
+            // console.log('result.data', result.data)
+            const usuario = result.data
+            // console.log('usuario', usuario)
+            setUser(usuario)
+          } catch (error) {
+            alert('Hubo un error con el usuario')
+          }
+        }
+
+      }
+      User(session)
+    }
+  }, [session]);
+
+  if (user.name) {
+    console.log('user', user)
+  }
+
 
   const handleSearch = async (event) => {
     const value = event.target.value;
@@ -57,8 +113,6 @@ export default function myPage() {
     setFilter('')
     setSort('')
   }
-
-  const { data: session } = useSession()
 
   if (session === null) return <Landing />
 
