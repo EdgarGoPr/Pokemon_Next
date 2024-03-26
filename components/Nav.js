@@ -1,10 +1,29 @@
+'use client'
+
 import Landing from "@/pages/Unauth";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 export default function Nav({ handleSearch, query, handleFilter, filter, filterOptions, sort, sortOptions, handleSort, handleReset }) {
-
+  const [selectedFilter, setSelectedFilter] = useState(filter)
   const router = useRouter()
+
+
+  const handleChangeFilter = (e) => {
+    const value = e.target.value;
+    setSelectedFilter(value);
+    handleFilter(value);
+  }
+
+  const renderFilterOptions = () => {
+    return filterOptions.map((option) => (
+      <option key={option.value} value={option.value}>
+        {option.label}
+      </option>
+    ))
+  }
 
   const handleProfile = () => {
     // Add the logic for the "Profile" option here
@@ -50,12 +69,8 @@ export default function Nav({ handleSearch, query, handleFilter, filter, filterO
         />
       </div>
       <div>
-        <select value={filter} onChange={(e) => handleFilter(e.target.value)}>
-          {filterOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
+        <select value={selectedFilter} onChange={handleChangeFilter}>
+          {renderFilterOptions()}
         </select>
       </div>
       <div>

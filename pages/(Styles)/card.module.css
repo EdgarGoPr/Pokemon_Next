@@ -1,0 +1,67 @@
+.Card {
+  position: relative;
+  border: 2px solid #ccccccc7;
+  border-radius: 8.5px; /* Reducido en un 15% */
+  box-shadow: 0 3.4px 6.8px rgba(0, 0, 0, 0.2); /* Reducido en un 15% */
+  padding: 13.6px; /* Reducido en un 15% */
+  width: 148.75px; /* Reducido en un 15% */
+  height: 233.75px; /* Reducido en un 15% */
+  margin: 13.6px; /* Reducido en un 15% */
+  text-align: center;
+  background-color: #666666c2;
+  transition: transform 0.255s ease; /* Reducido en un 15% */
+}
+
+.Card:hover {
+  transform: scale(1.1); /* Reducido en un 15% */
+}
+
+.CardImage {
+  width: 106.25px; /* Reducido en un 15% */
+  height: 106.25px; /* Reducido en un 15% */
+  object-fit: cover;
+  border-radius: 4.25%; /* Reducido en un 15% */
+  margin-bottom: 13.6px; /* Reducido en un 15% */
+}
+
+.CardName {
+  font-size: 15.3px; /* Reducido en un 15% */
+  font-weight: bold;
+  margin-bottom: 6.8px; /* Reducido en un 15% */
+}
+
+.TypesContainer {
+  margin-top: 0.85rem; /* Mantenido igual */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Estilo para el primer elemento de TypesContainer */
+.TypesContainer p:first-child {
+  margin-top: 0; /* Eliminar el margen superior del primer elemento */
+}
+
+/* Estilo para el último elemento de TypesContainer */
+.TypesContainer p:last-child {
+  margin-bottom: 0; /* Eliminar el margen inferior del último elemento */
+}
+
+.CardButton {
+  position: absolute;
+  top: 4.25px; /* Reducido en un 15% */
+  right: 4.25px; /* Reducido en un 15% */
+  background-color: #007bff;
+  color: white;
+  padding: 1.7px 10.2px; /* Reducido en un 15% */
+  border: none;
+  cursor: pointer;
+  border: 2px solid #ccccccc7;
+  border-radius: 4.25px; /* Reducido en un 15% */
+  transition: background-color 0.255s ease; /* Reducido en un 15% */
+}
+
+.CardButton:hover {
+  background-color: #0056b3;
+}

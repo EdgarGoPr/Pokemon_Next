@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/router";
+import styles from "@/pages/(Styles)/card.module.css"
 
 export default function Card({ data }) {
   const router = useRouter();
@@ -11,21 +12,21 @@ export default function Card({ data }) {
   };
 
   return (
-    <>
+    <div className={styles.Card}>
       <div key={data.id}>
-        <button onClick={handleClick}>+</button>
+        <button className={styles.CardButton} onClick={handleClick}>+</button>
       </div>
       <div>
-        <h1>{data.name.toUpperCase()}</h1>
+        <h1 className={styles.CardName}>{data.name.toUpperCase()}</h1>
       </div>
       <div>
-        <img src={data.image} alt={data.name} />
+        <img className={styles.CardImage} src={data.image} alt={data.name} />
       </div>
-      <div>
+      <div className={styles.TypesContainer}>
         {data.type.map((type, index) => (
           <p key={index}>{type.toUpperCase()}</p>
         ))}
       </div>
-    </>
+    </div>
   );
 }

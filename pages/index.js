@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Landing from "./Unauth";
 import { useRouter } from "next/router";
 
+
 export default function myPage() {
   const [query, setQuery] = useState('');
   const [types, setTypes] = useState([]);
@@ -100,6 +101,8 @@ export default function myPage() {
     ...types.map((type) => ({ value: type.name, label: type.name.toUpperCase() })),
   ];
 
+  console.log('filter', filter)
+
   const handleSort = async (value) => {
     setSort(value);
   };
@@ -110,7 +113,7 @@ export default function myPage() {
     { value: 'za', label: 'DESCENDING' },
     { value: 'max', label: 'MAX ATTACK' },
     { value: 'min', label: 'MIN ATTACK' },
-    { value: 'idnum', label: 'IDENT NUM'},
+    { value: 'idnum', label: 'IDENT NUM' },
   ];
 
   const handleReset = async () => {
@@ -121,22 +124,28 @@ export default function myPage() {
   if (session === null) return <Landing />
 
   return (
-    <>
-      <Head>
-        <title>Pokemons</title>
-      </Head>
-      <Nav
-        handleSearch={handleSearch}
-        query={query}
-        handleFilter={handleFilter}
-        filter={filter}
-        filterOptions={filterOptions}
-        sort={sort}
-        sortOptions={sortOptions}
-        handleSort={handleSort}
-        handleReset={handleReset}
-      />
-      <Cards searchQuery={query} type={filter} sort={sort} />
-    </>
+    <div>
+      <div>
+        <Head>
+          <title>Pokemons</title>
+        </Head>
+      </div>
+      <div>
+        <Nav
+          handleSearch={handleSearch}
+          query={query}
+          handleFilter={handleFilter}
+          filter={filter}
+          filterOptions={filterOptions}
+          sort={sort}
+          sortOptions={sortOptions}
+          handleSort={handleSort}
+          handleReset={handleReset}
+        />
+      </div>
+      <div>
+        <Cards searchQuery={query} type={filter} sort={sort} />
+      </div>
+    </div>
   );
 }
