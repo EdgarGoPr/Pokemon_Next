@@ -7,7 +7,7 @@ export default function Card({ data }) {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/detail?id=${data.id}`);
+    router.push(`/Detail?id=${data.id}`);
   };
 
   return (

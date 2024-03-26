@@ -5,7 +5,8 @@ import Nav from "@/components/Nav";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import Landing from "./unauth";
+import Landing from "./Unauth";
+import { useRouter } from "next/router";
 
 export default function myPage() {
   const [query, setQuery] = useState('');
@@ -14,6 +15,8 @@ export default function myPage() {
   const [sort, setSort] = useState('');
   const [user, setUser] = useState({})
   const { data: session } = useSession()
+
+  const router = useRouter()
 
 
 
@@ -107,6 +110,7 @@ export default function myPage() {
     { value: 'za', label: 'DESCENDING' },
     { value: 'max', label: 'MAX ATTACK' },
     { value: 'min', label: 'MIN ATTACK' },
+    { value: 'idnum', label: 'IDENT NUM'},
   ];
 
   const handleReset = async () => {

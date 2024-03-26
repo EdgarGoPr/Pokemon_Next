@@ -1,18 +1,21 @@
-import Landing from "@/pages/unauth";
+import Landing from "@/pages/Unauth";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export default function Nav({ handleSearch, query, handleFilter, filter, filterOptions, sort, sortOptions, handleSort, handleReset }) {
+
+  const router = useRouter()
 
   const handleProfile = () => {
     // Add the logic for the "Profile" option here
   };
 
   const handleCreateType = () => {
-    router.push('/create_type')
+    router.push('/Create_Type')
   };
 
   const handleCreatePokemon = () => {
-    router.push('/create_poke')
+    router.push('/Create_Pokemon')
   };
 
   const handleSelectorChange = (event) => {
@@ -47,7 +50,7 @@ export default function Nav({ handleSearch, query, handleFilter, filter, filterO
         />
       </div>
       <div>
-        <select value={filter} onChange={handleFilter}>
+        <select value={filter} onChange={(e) => handleFilter(e.target.value)}>
           {filterOptions.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
@@ -56,7 +59,7 @@ export default function Nav({ handleSearch, query, handleFilter, filter, filterO
         </select>
       </div>
       <div>
-        <select value={sort} onChange={handleSort}>
+        <select value={sort} onChange={(e) => handleSort(e.target.value)}>
           {sortOptions.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}

@@ -27,6 +27,10 @@ const Detail = () => {
     fetchPoke();
   }, [id]);
 
+  const handleHome = () => {
+    router.push('/')
+  }
+
   return (
     <>
       <Head>
@@ -40,6 +44,9 @@ const Detail = () => {
         <div>Loading...</div>
       ) : (
         <>
+        <div>
+          <button onClick={handleHome}>HOME</button>
+        </div>
           <div>
             <h1>{`NAME: ${poke.name.toUpperCase()}`}</h1>
           </div>

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
-import validations from "./api/utils/Validations";
+import validations from "@/pages/api/utils/Validations.js";
 import Head from "next/head";
 
 const TypeButton = ({ type, formType, handleTypeClick }) => {
@@ -48,7 +48,7 @@ const Form = () => {
 
 
   const handleHome = () => {
-    router.push('/home')
+    router.push('/')
   }
 
   const nameExists = async (name) => {
@@ -158,7 +158,7 @@ const Form = () => {
             window.alert(data.message)
           } else {
             window.alert(data.message)
-            router.push("/home");
+            router.push("/");
           }
 
         })

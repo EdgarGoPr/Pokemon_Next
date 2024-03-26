@@ -35,6 +35,9 @@ export default async function get_all_poke(req, res) {
       case "min":
         data.sort((a, b) => a.attack - b.attack);
         break;
+      case "idnum":
+        data.sort((a, b) => a.ident - b.ident);
+        break;
       default:
         break;
     }

@@ -46,12 +46,12 @@ const createType = () => {
     .then((data) => {
       console.log('New type created', data);
       window.alert(data.message);
-      router.push('/home')
+      router.push('/')
     })
   }
 
   const handleHome = () => {
-    router.push('/home')
+    router.push('/')
   }
 
   return (
