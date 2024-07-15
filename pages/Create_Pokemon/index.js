@@ -24,7 +24,7 @@ const Form = () => {
   const [types, setTypes] = useState([]);
   const [error, setError] = useState({});
   const [form, setForm] = useState({
-    ident: "",
+    // ident: "",
     name: "",
     image: "",
     health: "",
@@ -74,28 +74,28 @@ const Form = () => {
       });
   };
 
-  const identExists = async (ident) => {
-    await fetch(`/api/get/get_ident_poke?ident=${ident}`)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.message === 'The pokemon exists') {
-          setError((prevError) => ({
-            ...prevError,
-            ident: "Pokemon identification already exists!",
-          }));
-          return true;
-        } else if (result.message === "No pokemons found") {
-          setError((prevError) => ({
-            ...prevError,
-            ident: "",
-          }));
-          return false;
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const identExists = async (ident) => {
+  //   await fetch(`/api/get/get_ident_poke?ident=${ident}`)
+  //     .then((response) => response.json())
+  //     .then((result) => {
+  //       if (result.message === 'The pokemon exists') {
+  //         setError((prevError) => ({
+  //           ...prevError,
+  //           ident: "Pokemon identification already exists!",
+  //         }));
+  //         return true;
+  //       } else if (result.message === "No pokemons found") {
+  //         setError((prevError) => ({
+  //           ...prevError,
+  //           ident: "",
+  //         }));
+  //         return false;
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
 
 
@@ -114,9 +114,9 @@ const Form = () => {
     if (name === 'name' && name.length > 0) {
       nameExists(value)
     }
-    if (name === 'ident' && name.length > 0) {
-      identExists(value)
-    }
+    // if (name === 'ident' && name.length > 0) {
+    //   identExists(value)
+    // }
   };
 
   const submitHandler = (event) => {
@@ -129,7 +129,7 @@ const Form = () => {
     }
 
     const newPokemon = {
-      ident: parseInt(form.ident),
+      // ident: parseInt(form.ident),
       name: form.name.toLowerCase(),
       image: form.image,
       health: parseInt(form.health),
@@ -209,7 +209,7 @@ const Form = () => {
         <form onSubmit={submitHandler}>
           <div>
             <div>
-              <div>
+              {/* <div>
                 <input
                   type="number"
                   name="ident"
@@ -218,7 +218,7 @@ const Form = () => {
                   onChange={changeHandler}
                 />
                 {error.ident && <p>{error.ident}</p>}
-              </div>
+              </div> */}
               <div>
                 <input
                   type="text"

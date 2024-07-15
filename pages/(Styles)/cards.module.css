@@ -1,0 +1,8 @@
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Espacio entre las tarjetas */
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: flex-start; /* Alinea los elementos arriba */
+  height: 100%;
+}

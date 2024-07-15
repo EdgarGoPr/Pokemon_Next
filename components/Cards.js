@@ -2,8 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
+import styles from "@/pages/(Styles)/cards.module.css"
 
-const Cards = ({ searchQuery, type, sort }) => {
+const Cards = ({ searchQuery, type, sort, page, pageSize }) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -11,7 +12,7 @@ const Cards = ({ searchQuery, type, sort }) => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`/api/get/get_poke?name=${searchQuery}&type=${type}&sort=${sort}`);
+        const response = await fetch(`/api/get/get_poke/?name=${searchQuery}&type=${type}&sort=${sort}&page=${page}&pageS=${pageSize}`);
         const result = await response.json();
         setData(result.data);
         setIsLoading(false);
@@ -22,10 +23,10 @@ const Cards = ({ searchQuery, type, sort }) => {
     };
 
     fetchData();
-  }, [searchQuery, type, sort]);
+  }, [searchQuery, type, sort, page, pageSize]);
 
   return (
-    <div>
+    <div className={styles['cardsContainer']}>
       {isLoading ? (
         <div>Loading...</div>
       ) : (

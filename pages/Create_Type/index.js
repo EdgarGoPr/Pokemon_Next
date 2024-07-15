@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useRouter } from "next/router"
 import Head from "next/head"
+import styles from "@/pages/(Styles)/creType.module.css"
 
 
 const createType = () => {
@@ -56,30 +57,32 @@ const createType = () => {
 
   return (
     <>
-    <Head>
-      <title>Type | Create</title>
-    </Head>
-    <div>
-      <button onClick={handleHome}>HOME</button>
-    </div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
+  <Head>
+    <title>Type | Create</title>
+  </Head>
+  <div className={styles['home-button-container']}>
+    <button onClick={handleHome}>HOME</button>
+  </div>
+  <div className={styles['main-container']}>
+    <form onSubmit={handleSubmit} className={styles['form-container']}>
+      <div>
+        <input
           type='text'
           name='name'
           placeholder="NAME"
           value={form.name}
           onChange={handleChange}
-          />
-        </div>
-        <div>
-          {error.name && <p>{error.name}</p>}
-        </div>
-        <div>
-          <button type="submit">CREATE TYPE</button>
-        </div>
+        />
+      </div>
+      <div>
+        {error.name && <p>{error.name}</p>}
+      </div>
+      <div>
+        <button type="submit">CREATE TYPE</button>
+      </div>
     </form>
-    </>
+  </div>
+</>
   )
 }
 

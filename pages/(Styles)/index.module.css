@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  min-height: 100vh; /* Ajustado a 100vh en lugar de 100hv */
+  background-color: #051011;
+}
+
+.nav {
+  flex: 0.7; /* Ocupa todo el espacio posible */
+  margin-right: 20px; /* Espacio entre Nav y Cards */
+  position: sticky;
+  top: 0;
+}
+
+.cards {
+  flex: 3.3; /* Ocupa tres veces más espacio que Nav */
+  height: 100%; /* Ocupa el 100% del contenedor */
+  background-color: #051011;
+  margin-left: 0
+}
+
+.page {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  gap: 5px; /* Espacio entre los botones */
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: center; /* Alinea los elementos al centro verticalmente */
+}
+
+.pageButton {
+  padding: 5px 10px; /* Ajusta el padding de los botones */
+  align-items: flex-end;
+  border-radius: 8px; /* Bordes redondeados */
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  margin-top: 5px;
+  padding: 0;
+  color: blanchedalmond;
+}
+
+.stick {
+  position: sticky;
+  top: 0;
+}

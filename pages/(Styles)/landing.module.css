@@ -1,0 +1,26 @@
+.container {
+  text-align: center; /* Alinear contenido al centro */
+  padding: 20px;
+
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.container h1 {
+  font-size: 2rem; /* Tamaño de fuente grande para el título principal */
+  margin-bottom: 10px; /* Espacio inferior para separar el título del contenido siguiente */
+  color: blanchedalmond;
+}
+
+.container h2 {
+  font-size: 1.5rem; /* Tamaño de fuente más pequeño para el subtítulo */
+  margin-bottom: 20px; /* Mayor espacio inferior para separar del siguiente elemento */
+  color: blanchedalmond;
+}
+
+.button {
+  margin: 10px; /* Espacio entre los botones */
+  padding: 10px 20px; /* Relleno dentro de los botones */
+  font-size: 1rem; /* Tamaño de fuente estándar para los botones */
+  cursor: pointer; /* Cursor al pasar por encima de los botones */
+  border-radius: 8px; /* Bordes redondeados */
+}

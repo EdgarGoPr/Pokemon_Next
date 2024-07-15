@@ -1,0 +1,15 @@
+.nav {
+  /* background-color: #c7ecee; */
+  background-color: #1b393a; /* Color de fondo celeste claro */
+  padding: 10px; /* Espacio interno */
+  margin-bottom: 10px; /* Espacio inferior */
+  height: 100vh;
+}
+
+.navSelect,
+.navInput,
+.navButton {
+  margin-right: 10px; /* Espacio entre elementos */
+  margin-top: 10px;
+  border-radius: 8px; /* Bordes redondeados */
+}

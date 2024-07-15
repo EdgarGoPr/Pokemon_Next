@@ -3,7 +3,7 @@ import formatCard from "../utils/format_poke";
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    fetch('https://pokeapi.co/api/v2/pokemon?limit=10')
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=51')
       .then(async (apiResponse) => {
         const apiData = await apiResponse.json();
         const apiPokemons = await Promise.all(

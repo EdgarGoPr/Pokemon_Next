@@ -1,9 +1,9 @@
 export default function validations(form) {
   let error = {}
 
-  if(form.ident < 2500) {
-    error.ident = 'Ident must be more than 2500'
-  }
+  // if(form.ident < 2500) {
+  //   error.ident = 'Ident must be more than 2500'
+  // }
   
   if (!form.name.length) {
     error.name = "Enter a name";

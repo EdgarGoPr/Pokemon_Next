@@ -1,7 +1,13 @@
 import prisma from "../utils/prisma";
 
+const paginatePokemons = (pokemons, page, pageS) => {
+  const startIndex = (page - 1) * pageS;
+  const endIndex = page * pageS;
+  return pokemons.slice(startIndex, endIndex);
+};
+
 export default async function get_all_poke(req, res) {
-  const { name, sort, type } = req.query
+  const { name, sort, type, page, pageS } = req.query
   try {
     let data
     if (name) {
@@ -19,7 +25,7 @@ export default async function get_all_poke(req, res) {
         }
       });
     }
-    if(type) {
+    if (type) {
       data = data.filter((p) => p.type.includes(type))
     }
     switch (sort) {
@@ -42,6 +48,7 @@ export default async function get_all_poke(req, res) {
         break;
     }
     const num = data.length;
+    data = paginatePokemons(data, page, pageS)
     return res.status(200).json({ message: 'Fetch successful', total: num, data: data });
   } catch (error) {
     console.log('Error:', error);

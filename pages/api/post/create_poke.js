@@ -2,6 +2,10 @@ import prisma from "../utils/prisma";
 
 export default async function handler(req, res) {
   const { data } = req.body;
+  const pokemons = await prisma.pokemon.findMany()
+  const id = pokemons.length + 1
+  data.ident = id
+  console.log('pokemons', pokemons.length)
   if (req.method === 'POST') {
     try {
       const typePromises = data.type.map(async (t) => {

@@ -7,6 +7,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import Landing from "./Unauth";
 import { useRouter } from "next/router";
+import styles from "@/pages/(Styles)/index.module.css"
 
 
 export default function myPage() {
@@ -15,6 +16,9 @@ export default function myPage() {
   const [filter, setFilter] = useState('');
   const [sort, setSort] = useState('');
   const [user, setUser] = useState({})
+  const [page, setPage] = useState(1)
+  const [pageSize] = useState(10)
+  const [total, setTotal] = useState(1)
   const { data: session } = useSession()
 
   const router = useRouter()
@@ -78,9 +82,20 @@ export default function myPage() {
         }
 
       }
+      const totalPoke = async (searchQuery, filter, sort) => {
+        try {
+          let response = await fetch(`/api/get/get_poke?name=${query}&type=${filter}&sort=${sort}`);
+          let pok = await response.json();
+          setTotal(pok.total);
+        } catch (error) {
+          console.log("Error:", error);
+        }
+      }
+
       User(session)
+      totalPoke(query, filter, sort)
     }
-  }, [session]);
+  }, [session, query, filter, sort]);
 
   if (user.name) {
     console.log('user', user)
@@ -95,6 +110,9 @@ export default function myPage() {
   const handleFilter = async (value) => {
     setFilter(value);
   };
+  const handlePage = async (value) => {
+    setPage(value)
+  }
 
   const filterOptions = [
     { value: '', label: 'SELECT TYPE' },
@@ -121,6 +139,8 @@ export default function myPage() {
     setSort('')
   }
 
+  const numPages = Math.ceil(total / pageSize);
+
   if (session === null) return <Landing />
 
   return (
@@ -130,21 +150,43 @@ export default function myPage() {
           <title>Pokemons</title>
         </Head>
       </div>
-      <div>
-        <Nav
-          handleSearch={handleSearch}
-          query={query}
-          handleFilter={handleFilter}
-          filter={filter}
-          filterOptions={filterOptions}
-          sort={sort}
-          sortOptions={sortOptions}
-          handleSort={handleSort}
-          handleReset={handleReset}
-        />
-      </div>
-      <div>
-        <Cards searchQuery={query} type={filter} sort={sort} />
+      <div className={styles['container']}>
+        <div className={styles['nav']}>
+          <div className={styles['stick']}>
+            <Nav
+              handleSearch={handleSearch}
+              query={query}
+              handleFilter={handleFilter}
+              filter={filter}
+              filterOptions={filterOptions}
+              sort={sort}
+              sortOptions={sortOptions}
+              handleSort={handleSort}
+              handleReset={handleReset}
+            />
+          </div>
+        </div>
+
+        <div className={styles['cards']}>
+          <div>
+            <h1 className={styles['title']}>
+              Pokemon Cards!
+            </h1>
+          </div>
+          <Cards searchQuery={query} type={filter} sort={sort} page={page} pageSize={pageSize} />
+          <div className={styles['page']}>
+            {/* Botones de paginación */}
+            {[...Array(numPages)].map((_, index) => (
+              <button
+                key={index}
+                onClick={() => handlePage(index + 1)}
+                className={styles['pageButton']}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
