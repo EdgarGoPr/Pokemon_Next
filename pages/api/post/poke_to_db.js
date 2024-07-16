@@ -22,7 +22,6 @@ export default async function handler(req, res) {
             });
           })
         );
-
         res.status(200).json({ message: 'Database filled successfully' })
       })
       .catch((error) => {
@@ -30,7 +29,7 @@ export default async function handler(req, res) {
         res.status(500).json({ message: 'An error occured while fetching data' });
       });
   } else {
-    res.status(405).json({ message: 'Method not allowed' })
+    res.status(405).json({ message: 'Method not allowedd' })
   }
 }
 
