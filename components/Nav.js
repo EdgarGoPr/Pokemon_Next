@@ -42,9 +42,9 @@ export default function Nav({ handleSearch, query, handleFilter, filter, filterO
     const selectedOption = event.target.value;
     if (selectedOption === "profile") {
       handleProfile();
-    } else if (selectedOption === "createType") {
+    } else if (selectedOption === "CreateType") {
       handleCreateType();
-    } else if (selectedOption === "createPokemon") {
+    } else if (selectedOption === "CreatePokemon") {
       handleCreatePokemon();
     } else if (selectedOption === "logout") {
       signOut()
@@ -58,8 +58,8 @@ export default function Nav({ handleSearch, query, handleFilter, filter, filterO
           <select onChange={handleSelectorChange}>
             <option value=''>HOME</option>
             {/* <option value="profile">PROFILE</option> */}
-            <option value="createType">CREATE TYPE</option>
-            <option value="createPokemon">CREATE POKEMON</option>
+            <option value="CreateType">CREATE TYPE</option>
+            <option value="CreatePokemon">CREATE POKEMON</option>
             <option value="logout">LOGOUT</option>
           </select>
         </div>

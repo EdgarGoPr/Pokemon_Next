@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import styles from "@/pages/(Styles)/detail.module.css"
+import Image from "next/image";
 
 const Detail = () => {
   const router = useRouter();
@@ -55,7 +56,7 @@ const Detail = () => {
                 <h2>{`IDENTIFICATION NUMBER: ${poke.ident}`}</h2>
               </div>
               <div className={styles['image']}>
-                <img src={poke.image} alt={poke.name} />
+                <Image src={poke.image} alt={poke.name} />
               </div>
               <div className={styles['stats']}>
                 <div>

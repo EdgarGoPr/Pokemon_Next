@@ -3,6 +3,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import styles from "@/pages/(Styles)/card.module.css"
+import Image from "next/image";
 
 export default function Card({ data }) {
   const router = useRouter();
@@ -20,7 +21,7 @@ export default function Card({ data }) {
         <h1 className={styles.CardName}>{data.name.toUpperCase()}</h1>
       </div>
       <div>
-        <img className={styles.CardImage} src={data.image} alt={data.name} />
+        <Image className={styles.CardImage} src={data.image} alt={data.name} />
       </div>
       <div className={styles.TypesContainer}>
         {data.type.map((type, index) => (

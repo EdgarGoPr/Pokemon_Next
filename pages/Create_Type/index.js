@@ -6,7 +6,7 @@ import Head from "next/head"
 import styles from "@/pages/(Styles)/creType.module.css"
 
 
-const createType = () => {
+const CreateType = () => {
   const router = useRouter()
   const [error, setError] = useState({})
   const [form, setForm] = useState({
@@ -86,4 +86,4 @@ const createType = () => {
   )
 }
 
-export default createType
+export default CreateType

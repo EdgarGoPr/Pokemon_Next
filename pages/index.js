@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import styles from "@/pages/(Styles)/index.module.css"
 
 
-export default function myPage() {
+export default function MyPage() {
   const [query, setQuery] = useState('');
   const [types, setTypes] = useState([]);
   const [filter, setFilter] = useState('');
@@ -147,7 +147,7 @@ export default function myPage() {
     <div>
       <div>
         <Head>
-          <title>Pokemons</title>
+          <title>POKE APP</title>
         </Head>
       </div>
       <div className={styles['container']}>
