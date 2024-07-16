@@ -7,7 +7,6 @@
 
 .main-container {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: calc(100vh - 20px); /* Altura total menos el espacio del botón HOME */
@@ -15,8 +14,6 @@
 
 .form-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 80%; /* Ancho del formulario */
   max-width: 400px; /* Ancho máximo del formulario */
   margin-top: 20px; /* Espacio arriba del formulario */

@@ -2,17 +2,24 @@ import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 import validations from "@/pages/api/utils/Validations.js";
 import Head from "next/head";
+import styles from "@/pages/(Styles)/crePoke.module.css"
 
-const TypeButton = ({ type, formType, handleTypeClick }) => {
+const TypeButton = ({ type, formType, handleTypeClick, isActivated }) => {
   const isActive = formType.includes(type);
+
+  // Determina si el botón está activado basándose en la prop isActivated
+  const buttonStyle = isActive || isActivated ? "active" : "inactive";
 
   return (
     <div>
       <button
         type="button"
         onClick={() => handleTypeClick(type)}
-      >+</button>
-      <h4>{type.toUpperCase()}</h4>
+        className={`${styles[buttonStyle]}`}
+      >
+        +
+      </button>
+      <h4 className={styles['tipo']}>{type.toUpperCase()}</h4>
     </div>
   );
 };
@@ -46,7 +53,6 @@ const Form = () => {
       .catch((error) => console.log(error));
   }, []);
 
-
   const handleHome = () => {
     router.push('/')
   }
@@ -74,31 +80,6 @@ const Form = () => {
       });
   };
 
-  // const identExists = async (ident) => {
-  //   await fetch(`/api/get/get_ident_poke?ident=${ident}`)
-  //     .then((response) => response.json())
-  //     .then((result) => {
-  //       if (result.message === 'The pokemon exists') {
-  //         setError((prevError) => ({
-  //           ...prevError,
-  //           ident: "Pokemon identification already exists!",
-  //         }));
-  //         return true;
-  //       } else if (result.message === "No pokemons found") {
-  //         setError((prevError) => ({
-  //           ...prevError,
-  //           ident: "",
-  //         }));
-  //         return false;
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
-
-
   const changeHandler = (event) => {
     const { name, value } = event.target;
     setForm((prevForm) => ({
@@ -114,22 +95,20 @@ const Form = () => {
     if (name === 'name' && name.length > 0) {
       nameExists(value)
     }
-    // if (name === 'ident' && name.length > 0) {
-    //   identExists(value)
-    // }
   };
 
-  const submitHandler = (event) => {
-    event.preventDefault();
+  const submitHandler = async (event) => {
+    console.log('aqui toy')
+    event.preventDefault(); // Detiene la propagación del evento por defecto
+
     const errors = validations(form);
 
     if (Object.keys(errors).length > 0) {
       setError(errors);
-      return;
+      return; // Detiene la función si hay errores de validación
     }
 
     const newPokemon = {
-      // ident: parseInt(form.ident),
       name: form.name.toLowerCase(),
       image: form.image,
       health: parseInt(form.health),
@@ -141,32 +120,33 @@ const Form = () => {
       type: form.type,
     };
 
-    const confirmed = window.confirm("Are you sure you want to create a new Pokémon?")
+    const confirmed = window.confirm("Are you sure you want to create a new Pokémon?");
 
     if (confirmed) {
-      fetch("/api/post/create_poke", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ data: newPokemon }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log("New Pokemon created:", data);
-          if (data.message === 'Error creating pokemon') {
-            window.alert(data.message)
-          } else {
-            window.alert(data.message)
-            router.push("/");
-          }
-
-        })
-        .catch((error) => {
-          console.log(error)
+      try {
+        const response = await fetch("/api/post/create_poke", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ data: newPokemon }),
         });
+
+        if (!response.ok) {
+          throw new Error("Error creating pokemon");
+        }
+
+        const data = await response.json();
+        console.log("New Pokemon created:", data);
+        window.alert(data.message);
+        router.push("/");
+      } catch (error) {
+        console.error("Error creating pokemon:", error);
+        window.alert("Error creating pokemon");
+      }
     }
   };
+
 
   const handleTypeClick = (type) => {
     if (form.type.includes(type)) {
@@ -202,110 +182,99 @@ const Form = () => {
       <Head>
         <title>Pokemon | Create</title>
       </Head>
-      <div>
-        <div>
+      <div className={styles['container']}>
+
+        <div className={styles['homeButtonContainer']}>
           <button onClick={handleHome}>HOME</button>
         </div>
-        <form onSubmit={submitHandler}>
-          <div>
-            <div>
-              {/* <div>
-                <input
-                  type="number"
-                  name="ident"
-                  placeholder="IDENTIFICATION NUMBER"
-                  value={form.ident}
-                  onChange={changeHandler}
-                />
-                {error.ident && <p>{error.ident}</p>}
-              </div> */}
-              <div>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="NAME"
-                  value={form.name}
-                  onChange={changeHandler}
-                />
-                {error.name && <p>{error.name}</p>}
-              </div>
-              <div>
-                <input
-                  type="text"
-                  name="image"
-                  placeholder="IMAGE URL"
-                  value={form.image}
-                  onChange={changeHandler}
-                />
-                {error.image && <p>{error.image}</p>}
-              </div>
-              <div>
-                <input
-                  type="number"
-                  name="health"
-                  placeholder="HEALTH"
-                  value={form.health}
-                  onChange={changeHandler}
-                />
-                {error.health && <p>{error.health}</p>}
-              </div>
-              <div>
-                <input
-                  type="number"
-                  name="attack"
-                  placeholder="ATTACK"
-                  value={form.attack}
-                  onChange={changeHandler}
-                />
-                {error.attack && <p>{error.attack}</p>}
-              </div>
-              <div>
-                <input
-                  type="number"
-                  name="defense"
-                  placeholder="DEFENSE"
-                  value={form.defense}
-                  onChange={changeHandler}
-                />
-                {error.defense && <p>{error.defense}</p>}
-              </div>
-              <div>
-                <input
-                  type="number"
-                  name="speed"
-                  placeholder="SPEED"
-                  value={form.speed}
-                  onChange={changeHandler}
-                />
-                {error.speed && <p>{error.speed}</p>}
-              </div>
-              <div>
-                <input
-                  type="number"
-                  name="height"
-                  placeholder="HEIGHT"
-                  value={form.height}
-                  onChange={changeHandler}
-                />
-                {error.height && <p>{error.height}</p>}
-              </div>
-              <div>
-                <input
-                  type="number"
-                  name="weight"
-                  placeholder="WEIGHT"
-                  value={form.weight}
-                  onChange={changeHandler}
-                />
-                {error.weight && <p>{error.weight}</p>}
-              </div>
+        <form onSubmit={submitHandler} className={styles['formContainer']}>
+          <div className={styles['leftSection']}>
+            <div className={styles['inputGroup']}>
+              <input
+                type="text"
+                name="name"
+                placeholder="NAME"
+                value={form.name}
+                onChange={changeHandler}
+              />
+              {error.name && <p className={styles['error']}>{error.name}</p>}
             </div>
-          </div>
-          <div>
-            <div>
-              <div>
-                <h1>TYPE</h1>
-                <div>
+            <div className={styles['inputGroup']}>
+              <input
+                type="text"
+                name="image"
+                placeholder="IMAGE URL"
+                value={form.image}
+                onChange={changeHandler}
+              />
+              {error.image && <p className={styles['error']}>{error.image}</p>}
+            </div>
+            <div className={styles['inputGroup']}>
+              <input
+                type="number"
+                name="health"
+                placeholder="HEALTH"
+                value={form.health}
+                onChange={changeHandler}
+              />
+              {error.health && <p className={styles['error']}>{error.health}</p>}
+            </div>
+            <div className={styles['inputGroup']}>
+              <input
+                type="number"
+                name="attack"
+                placeholder="ATTACK"
+                value={form.attack}
+                onChange={changeHandler}
+              />
+              {error.attack && <p className={styles['error']}>{error.attack}</p>}
+            </div>
+            <div className={styles['inputGroup']}>
+              <input
+                type="number"
+                name="defense"
+                placeholder="DEFENSE"
+                value={form.defense}
+                onChange={changeHandler}
+              />
+              {error.defense && <p className={styles['error']}>{error.defense}</p>}
+            </div>
+            <div className={styles['inputGroup']}>
+              <input
+                type="number"
+                name="speed"
+                placeholder="SPEED"
+                value={form.speed}
+                onChange={changeHandler}
+              />
+              {error.speed && <p className={styles['error']}>{error.speed}</p>}
+            </div>
+            <div className={styles['inputGroup']}>
+              <input
+                type="number"
+                name="height"
+                placeholder="HEIGHT"
+                value={form.height}
+                onChange={changeHandler}
+              />
+              {error.height && <p className={styles['error']}>{error.height}</p>}
+            </div>
+            <div className={styles['inputGroup']}>
+              <input
+                type="number"
+                name="weight"
+                placeholder="WEIGHT"
+                value={form.weight}
+                onChange={changeHandler}
+              />
+              {error.weight && <p className={styles['error']}>{error.weight}</p>}
+            </div>
+          </div >
+          <div className={styles['rightSection']}>
+            <div className={styles['submitSection']}>
+              <div className={styles['typeSection']}>
+                <h1 className={styles['h1']}>TYPE</h1>
+                <div className={styles['typeButtons']}>
                   {types &&
                     types.map((type, index) => (
                       <TypeButton
@@ -317,18 +286,21 @@ const Form = () => {
                     ))}
                 </div>
               </div>
+              <div>
+                {error.type && (
+                  <p className={styles['error']}>{error.type}</p>
+                )}
+              </div>
+              <button type="submit">
+                Create Pokemons
+              </button>
             </div>
-            <div>
-              {error.type && (
-                <p className="error-message-types">{error.type}</p>
-              )}
-            </div>
-            <button type="submit">
-              Create Pokemons
-            </button>
           </div>
+
         </form>
       </div>
+
+
     </>
   )
 }

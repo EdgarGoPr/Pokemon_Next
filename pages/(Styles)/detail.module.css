@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding-top: 20px; /* Espacio para el botón HOME */
+
+}
+
+
+.content {
+  text-align: center;
+  max-width: 80%; /* Limita el ancho del contenido para evitar que ocupe demasiado espacio */
+  border: 2px solid wheat; /* Agrega un borde de 2px de ancho y color wheat */
+  width: 30%;
+  background-color: #666666c2;
+}
+
+.home-button {
+  position: absolute;
+  top: 20px; /* Ajusta según sea necesario */
+  left: 20px; /* Ajusta según sea necesario */
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  gap: 50px; /* Ajusta este valor para controlar el espaciado entre los elementos */
+}
+
+.image img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
+}

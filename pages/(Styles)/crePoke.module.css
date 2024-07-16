@@ -1,0 +1,95 @@
+.container {
+  display: flex;
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftSection {
+  margin-top: 50px;
+  margin-right: 40vh;
+  width: 10%;
+}
+
+.rightSection {
+  width: 100%;
+  margin-right: 20vh;
+}
+
+.homeButtonContainer {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  margin-left: 30px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 100px; /* Añade un espacio de 20px entre los elementos */
+}
+.inputGroup {
+  margin-top: 40px;
+  margin-left: 70px;
+}
+
+.submitSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Espacio entre las tarjetas */
+  justify-content: center; /* Centra los elementos horizontalmente */
+  align-items: flex-start; /* Alinea los elementos arriba */
+  height: 100%;
+  width: 100%;
+  margin-right: 300px;
+}
+
+.typeSection {
+  margin-top: 20px;
+  margin-right: 100px;
+  width: 100%;
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan a la siguiente línea si no hay suficiente espacio */
+  justify-content: space-between; /* Distribuye uniformemente los elementos a lo largo del eje horizontal */
+  align-items: center; /* Centra los elementos a lo largo del eje vertical */
+
+}
+
+
+.typeButtons {
+  display: grid; /* Cambiado de flex a grid */
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Ajustado para auto-fit y minmax */
+  gap: 10px;
+  width: 100%;
+}
+
+.active {
+  width: 100%;
+  background-color: green; /* Cambia 'green' por el color que prefieras para el estado activado */
+  color: white; /* Cambia el color del texto si es necesario */
+}
+
+.inactive {
+  width: 100%;
+  background-color: wheat; /* Color inicial del botón */
+  color: black; /* Cambia el color del texto si es necesario */
+}
+
+.h1 {
+  grid-column: span 12; /* Ajustado para que el título abarque toda la fila */
+  text-align: center;
+  margin-bottom: 30px;
+  color: wheat
+}
+
+.error {
+  color: rgb(240, 94, 94);
+  margin: 0;
+  padding: 0;
+  position: absolute; /* Cambia de sticky a absolute */
+  z-index: 9999; /* Asegura que el elemento aparezca por encima de otros elementos */
+}
+
+.tipo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: wheat
+}
