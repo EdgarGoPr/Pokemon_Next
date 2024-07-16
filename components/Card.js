@@ -21,7 +21,7 @@ export default function Card({ data }) {
         <h1 className={styles.CardName}>{data.name.toUpperCase()}</h1>
       </div>
       <div>
-        <Image className={styles.CardImage} src={data.image} alt={data.name} />
+        <img className={styles.CardImage} src={data.image} alt={data.name}/>
       </div>
       <div className={styles.TypesContainer}>
         {data.type.map((type, index) => (

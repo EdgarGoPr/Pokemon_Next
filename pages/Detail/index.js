@@ -56,7 +56,7 @@ const Detail = () => {
                 <h2>{`IDENTIFICATION NUMBER: ${poke.ident}`}</h2>
               </div>
               <div className={styles['image']}>
-                <Image src={poke.image} alt={poke.name} />
+                <img src={poke.image} alt={poke.name} />
               </div>
               <div className={styles['stats']}>
                 <div>
