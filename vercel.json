@@ -1,0 +1,22 @@
+{
+  "builds": [
+    {
+      "src": "next.config.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "version": 2,
+  "env": {
+    "NEXTAUTH_URL": "https://your-vercel-url"
+  },
+  "build": {
+    "env": {
+      "PRISMA_CLIENT_ENGINE_TYPE": "binary"
+    },
+    "postinstall": "prisma generate"
+  }
+}
